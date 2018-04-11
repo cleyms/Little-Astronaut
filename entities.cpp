@@ -1,32 +1,24 @@
 #include "entities.hpp"
 
 //TextureSet struct
-TextureSet::TextureSet(vector<string> paths){
-	int i = 0;
-	for(; i<paths.size(); i++){
-		cout<<"Loading "<<paths[i]<<endl;
+TextureSet::TextureSet(string path, int size){
+	int i = 1;
+	for(; i<size+1; i++){
+		cout<<"Loading "<<path<<" "<<i<<".png"<<endl;
 		Texture foo;
-		foo.loadFromFile(paths[i]);
+		foo.loadFromFile(path+" ("+to_string(i)+").png");
 		textures.push_back(foo);
 	}
 }
 
 //Animation struct
-Animation::Animation(vector<string> paths){
+Animation::Animation(TextureSet textureSet){
 	//Init variables
 	frame = 0;
 	tick = 0;
 	speed = 200; //per 1000ticks
-	x = 0;
-	y = 0;
 	//Load textures
-	int i = 0;
-	for(; i<paths.size(); i++){
-		cout<<"Loading "<<paths[i]<<endl;
-		Texture foo;
-		foo.loadFromFile(paths[i]);
-		textures.push_back(foo);
-	}
+	textures = textureSet.textures;
 	sprite.setTexture(textures[0]);
 }
 void Animation::play(){
@@ -42,6 +34,9 @@ void Animation::play(){
 void Animation::setPos(int x, int y){
 	sprite.setPosition(x, y);
 }
+void Animation::setSpeed(int speed){
+	this->speed = speed;
+}
 
 //Player class
 Player::Player(Animation *animation){
@@ -50,10 +45,17 @@ Player::Player(Animation *animation){
 	this->y = 0;
 	this->speed = 5;
 }
+void Player::setAnimation(Animation *animation){
+	this->animation = animation;
+}
+void Player::playAnimation(RenderWindow *window){
+	this->animation->play();
+	window->draw(this->animation->sprite);
+}
 void Player::setPos(int x, int y){
 	this->x = x;
 	this->y = y;
-	animation->setPos(this->x, this->y);
+	animation->setPos(x, y);
 }
 int Player::getX(){
 	return this->x;

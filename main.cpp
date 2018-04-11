@@ -10,31 +10,17 @@ int main(int argc, char *argv[]){
 	int leftRight;
 	int downUp;
 
-	TextureSet p1TextureSet_walk({
-		"sprites/player/walk/walk (1).png",
-		"sprites/player/walk/walk (2).png",
-		"sprites/player/walk/walk (3).png",
-		"sprites/player/walk/walk (4).png",
-		"sprites/player/walk/walk (5).png",
-		"sprites/player/walk/walk (6).png",
-		"sprites/player/walk/walk (7).png",
-		"sprites/player/walk/walk (8).png"
-	});
+	TextureSet p1TextureSet_walk("sprites/player/walk/walk", 8);
+	TextureSet p1TextureSet_idle("sprites/player/idle/idle", 4);
 
-	Animation p1Animation({
-		"sprites/player/walk/walk (1).png",
-		"sprites/player/walk/walk (2).png",
-		"sprites/player/walk/walk (3).png",
-		"sprites/player/walk/walk (4).png",
-		"sprites/player/walk/walk (5).png",
-		"sprites/player/walk/walk (6).png",
-		"sprites/player/walk/walk (7).png",
-		"sprites/player/walk/walk (8).png"
-	});
-	Player p1(&p1Animation);
+	Animation p1Animation_walk(p1TextureSet_walk);
+	Animation p1Animation_idle(p1TextureSet_idle);
+	p1Animation_idle.speed = 100;
+
+	Player p1(&p1Animation_walk);
 	p1.setPos(0, -200);
 
-	RenderWindow window(VideoMode(500, 500), "First SFML!");
+	RenderWindow window(VideoMode(500, 500), "Little astronaut");
 	window.setFramerateLimit(60);
 
 	while(window.isOpen()){
@@ -46,12 +32,15 @@ int main(int argc, char *argv[]){
 
 		leftRight = (Keyboard::isKeyPressed(Keyboard::Right)-Keyboard::isKeyPressed(Keyboard::Left));
 		downUp = (Keyboard::isKeyPressed(Keyboard::Down)-Keyboard::isKeyPressed(Keyboard::Up));
-		
-		p1Animation.play();
+
+		if(downUp){
+			p1.setAnimation(&p1Animation_idle);
+		}
 
 		window.clear();
-		window.draw(p1Animation.sprite);
+		p1.playAnimation(&window);
 		window.display();
+
 		p1.setPos(p1.getX()+p1.getSpeed()*leftRight, p1.getY()+p1.getSpeed()*downUp);
 	}
 	return 0;
