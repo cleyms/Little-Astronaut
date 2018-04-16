@@ -20,7 +20,7 @@ int main(int argc, char *argv[]){
 	Player p1(&p1Animation_walk);
 	p1.setPos(0, -200);
 
-	RenderWindow window(VideoMode(500, 500), "Little astronaut");
+	RenderWindow window(VideoMode(900, 600), "Little astronaut");
 	window.setFramerateLimit(60);
 
 	while(window.isOpen()){
@@ -33,7 +33,13 @@ int main(int argc, char *argv[]){
 		leftRight = (Keyboard::isKeyPressed(Keyboard::Right)-Keyboard::isKeyPressed(Keyboard::Left));
 		downUp = (Keyboard::isKeyPressed(Keyboard::Down)-Keyboard::isKeyPressed(Keyboard::Up));
 
-		if(downUp){
+		if(leftRight){
+			p1.setAnimation(&p1Animation_walk);
+			if(leftRight > 0)
+				p1.setDir(true);
+			else
+				p1.setDir(false);
+		}else{
 			p1.setAnimation(&p1Animation_idle);
 		}
 

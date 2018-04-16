@@ -29,12 +29,14 @@ class Player{
 	private:
 		int x, y;
 		int speed;
+		bool dir;
 		Animation *animation;
 	public:
 		Player(Animation *animation);
 		void setAnimation(Animation *animation);
 		void playAnimation(RenderWindow *window);
 		void setPos(int x, int y);
+		void setDir(bool dir);
 		int getX();
 		int getY();
 		int getSpeed();

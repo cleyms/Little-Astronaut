@@ -43,19 +43,28 @@ Player::Player(Animation *animation){
 	this->animation = animation;
 	this->x = 0;
 	this->y = 0;
+	this->dir = true;
 	this->speed = 5;
 }
 void Player::setAnimation(Animation *animation){
-	this->animation = animation;
+	if(this->animation != animation)
+		this->animation = animation;
 }
 void Player::playAnimation(RenderWindow *window){
 	this->animation->play();
+	if(this->dir)
+		this->animation->sprite.setScale(1.f, 1.f);
+	else
+		this->animation->sprite.setScale(-1.f, 1.f);
 	window->draw(this->animation->sprite);
 }
 void Player::setPos(int x, int y){
 	this->x = x;
 	this->y = y;
 	animation->setPos(x, y);
+}
+void Player::setDir(bool dir){
+	this->dir = dir;
 }
 int Player::getX(){
 	return this->x;
