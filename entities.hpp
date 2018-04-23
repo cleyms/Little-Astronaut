@@ -25,12 +25,22 @@ typedef struct Animation{
 	void setSpeed(int speed);
 } Animation;
 
+typedef struct Hitbox{
+	int x, y;
+	int width, height;
+	bool hitted;
+
+	Hitbox(int x, int y, int width, int height);
+} Hitbox;
+
 class Player{
 	private:
 		int x, y;
+		int width, height;
 		int speed;
 		bool dir;
 		int size;
+		Hitbox *hitbox;
 		Animation *animation;
 	public:
 		Player(Animation *animation);

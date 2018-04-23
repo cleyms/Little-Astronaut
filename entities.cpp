@@ -37,14 +37,26 @@ void Animation::setSpeed(int speed){
 	this->speed = speed;
 }
 
+//Animation struct
+Hitbox::Hitbox(int x, int y, int width, int height){
+	this->x = x;
+	this->y = y;
+	this->width = width;
+	this->height = height;
+}
+
 //Player class
 Player::Player(Animation *animation){
 	this->animation = animation;
 	this->x = 0;
 	this->y = 0;
+	this->width = this->animation->textures[0].getSize().x;
+	this->height = this->animation->textures[0].getSize().y;
 	this->dir = true;
 	this->speed = 5;
 	this->size = 1;
+	Hitbox htbx = Hitbox(this->x, this->y, this->width, this->height);
+	this->hitbox = &htbx;
 }
 void Player::setAnimation(Animation *animation){
 	if(this->animation != animation)
@@ -57,7 +69,7 @@ void Player::playAnimation(RenderWindow *window){
 		this->animation->setPos(this->getX(), this->getY());
 	}else{
 		this->animation->sprite.setScale(-this->size, this->size);
-		this->animation->setPos(this->getX()+this->animation->textures[0].getSize().x, this->getY());
+		this->animation->setPos(this->getX()+this->width, this->getY());
 	}
 	window->draw(this->animation->sprite);
 }
@@ -80,4 +92,13 @@ int Player::getY(){
 }
 int Player::getSpeed(){
 	return this->speed;
+}
+void Player::drawHitbox(RenderWindow *window){
+	RectangleShape rectangle;
+	int width = this->animation->textures[0].getSize().x;
+	int height = this->animation->textures[0].getSize().y;
+	rectangle.setOutlineColor(Color::White);
+	rectangle.setSize(Vector2f(width, height));
+	rectangle.setPosition(this->x, this->y);
+	window->draw(rectangle);
 }
