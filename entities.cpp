@@ -29,7 +29,6 @@ void Animation::play(){
 		frame %= textures.size();
 	}
 	sprite.setTexture(textures[frame]);
-	sprite.setScale(2, 2);
 }
 void Animation::setPos(int x, int y){
 	sprite.setPosition(x, y);
@@ -45,6 +44,7 @@ Player::Player(Animation *animation){
 	this->y = 0;
 	this->dir = true;
 	this->speed = 5;
+	this->size = 1;
 }
 void Player::setAnimation(Animation *animation){
 	if(this->animation != animation)
@@ -52,16 +52,22 @@ void Player::setAnimation(Animation *animation){
 }
 void Player::playAnimation(RenderWindow *window){
 	this->animation->play();
-	if(this->dir)
-		this->animation->sprite.setScale(1.f, 1.f);
-	else
-		this->animation->sprite.setScale(-1.f, 1.f);
+	if(this->dir){
+		this->animation->sprite.setScale(this->size, this->size);
+		this->animation->setPos(this->getX(), this->getY());
+	}else{
+		this->animation->sprite.setScale(-this->size, this->size);
+		this->animation->setPos(this->getX()+this->animation->textures[0].getSize().x, this->getY());
+	}
 	window->draw(this->animation->sprite);
 }
 void Player::setPos(int x, int y){
 	this->x = x;
 	this->y = y;
 	animation->setPos(x, y);
+}
+void Player::setSize(int size){
+	this->size = size;
 }
 void Player::setDir(bool dir){
 	this->dir = dir;

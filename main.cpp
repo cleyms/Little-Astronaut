@@ -11,7 +11,7 @@ int main(int argc, char *argv[]){
 	int downUp;
 
 	TextureSet p1TextureSet_walk("sprites/player/walk/walk", 8);
-	TextureSet p1TextureSet_idle("sprites/player/idle/idle", 4);
+	TextureSet p1TextureSet_idle("sprites/player/idle/idle_size", 4);
 
 	Animation p1Animation_walk(p1TextureSet_walk);
 	Animation p1Animation_idle(p1TextureSet_idle);
@@ -19,6 +19,7 @@ int main(int argc, char *argv[]){
 
 	Player p1(&p1Animation_walk);
 	p1.setPos(0, -200);
+	p1.setSize(1.5);
 
 	RenderWindow window(VideoMode(900, 600), "Little astronaut");
 	window.setFramerateLimit(60);
