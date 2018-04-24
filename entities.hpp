@@ -13,6 +13,7 @@ typedef struct TextureSet{
 } TextureSet;
 
 typedef struct Animation{
+	int oX, oY;
 	int frame;
 	int speed;
 	int tick;
@@ -30,7 +31,9 @@ typedef struct Hitbox{
 	int width, height;
 	bool hitted;
 
+	Hitbox();
 	Hitbox(int x, int y, int width, int height);
+	void draw(RenderWindow *window);
 } Hitbox;
 
 class Player{
@@ -39,19 +42,18 @@ class Player{
 		int width, height;
 		int speed;
 		bool dir;
-		int size;
-		Hitbox *hitbox;
+		Hitbox hitbox;
 		Animation *animation;
 	public:
-		Player(Animation *animation);
+		Player(Animation *animation, int width, int height);
 		void setAnimation(Animation *animation);
 		void playAnimation(RenderWindow *window);
 		void setPos(int x, int y);
-		void setSize(int size);
 		void setDir(bool dir);
 		int getX();
 		int getY();
 		int getSpeed();
+		Hitbox *getHitbox();
 };
 
 #endif
