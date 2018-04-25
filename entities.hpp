@@ -22,10 +22,9 @@ typedef struct Animation{
 	vector<Texture> textures;
 	Sprite sprite;
 	
-	Animation(TextureSet textureSet);
+	Animation(TextureSet textureSet, int oX, int oY, int speed);
 	void play();
 	void setPos(int x, int y);
-	void setSpeed(int speed);
 } Animation;
 
 typedef struct Hitbox{

@@ -16,16 +16,8 @@ int main(int argc, char *argv[]){
 	TextureSet p1TextureSet_walk("sprites/player/walk/walk", 8);
 	TextureSet p1TextureSet_idle("sprites/player/idle/idle", 4);
 
-	Animation p1Animation_walk(p1TextureSet_walk);
-	Animation p1Animation_idle(p1TextureSet_idle);
-	
-	p1Animation_idle.oX = -25;
-	p1Animation_idle.oY = -160;
-
-	p1Animation_walk.oX = -25;
-	p1Animation_walk.oY = -160;
-
-	p1Animation_idle.speed = 100;
+	Animation p1Animation_walk(p1TextureSet_walk, -25, -160, 200);
+	Animation p1Animation_idle(p1TextureSet_idle, -25, -160, 100);
 
 	Player p1(&p1Animation_walk, 120, 190);
 	p1.setPos(0, 0);

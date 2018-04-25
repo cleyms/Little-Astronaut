@@ -12,13 +12,13 @@ TextureSet::TextureSet(string path, int size){
 }
 
 //Animation struct
-Animation::Animation(TextureSet textureSet){
+Animation::Animation(TextureSet textureSet, int oX, int oY, int speed){
 	//Init variables
-	this->oX = 0;
-	this->oY = 0;
+	this->oX = oX;
+	this->oY = oY;
 	this->frame = 0;
 	this->tick = 0;
-	this->speed = 200; //per 1000ticks
+	this->speed = speed; //per 1000ticks
 	//Load textures
 	this->textures = textureSet.textures;
 	this->sprite.setTexture(textures[0]);
@@ -34,9 +34,6 @@ void Animation::play(){
 }
 void Animation::setPos(int x, int y){
 	this->sprite.setPosition(x, y);
-}
-void Animation::setSpeed(int speed){
-	this->speed = speed;
 }
 
 //Animation struct
@@ -66,7 +63,7 @@ Player::Player(Animation *animation, int width, int height){
 	this->width = width;
 	this->height = height;
 	this->dir = true;
-	this->speed = 5;
+	this->speed = 6;
 	Hitbox htbx = Hitbox(this->x, this->y, this->width, this->height);
 	this->hitbox = htbx;
 }
