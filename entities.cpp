@@ -52,12 +52,12 @@ Hitbox::Hitbox(int x, int y, int width, int height){
 	this->width = width;
 	this->height = height;
 }
-void Hitbox::draw(RenderWindow *window){
+void Hitbox::draw(Camera *camera){
 	RectangleShape rectangle;
 	rectangle.setOutlineColor(Color::White);
 	rectangle.setSize(Vector2f(this->width, this->height));
 	rectangle.setPosition(this->x, this->y);
-	window->draw(rectangle);
+	camera->getWindow()->draw(rectangle);
 }
 
 //Player class

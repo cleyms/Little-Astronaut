@@ -7,6 +7,8 @@
 using namespace std;
 using namespace sf;
 
+#include "world.hpp"
+
 typedef struct TextureSet{
 	vector<Texture> textures;
 	TextureSet(string path, int size);
@@ -33,7 +35,7 @@ typedef struct Hitbox{
 
 	Hitbox();
 	Hitbox(int x, int y, int width, int height);
-	void draw(RenderWindow *window);
+	void draw(Camera *camera);
 } Hitbox;
 
 class Player{

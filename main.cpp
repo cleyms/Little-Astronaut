@@ -1,10 +1,11 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
-#include "entities.hpp"
-
 using namespace std;
 using namespace sf;
+
+#include "world.hpp"
+#include "entities.hpp"
 
 int main(int argc, char *argv[]){
 	//Basics vaiables
@@ -33,6 +34,9 @@ int main(int argc, char *argv[]){
 	RenderWindow window(VideoMode(1200, 900), "Little astronaut");
 	window.setFramerateLimit(60);
 
+	//Init camera
+	Camera camera(&window);
+
 	//Mainloop
 	while(window.isOpen()){
 		Event event;
@@ -59,7 +63,7 @@ int main(int argc, char *argv[]){
 
 		//Updating screen
 		window.clear();
-		p1.getHitbox()->draw(&window);
+		p1.getHitbox()->draw(&camera);
 		p1.playAnimation(&window);
 		window.display();
 	}
