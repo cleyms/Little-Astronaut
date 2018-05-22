@@ -8,9 +8,9 @@
 
 Game::Game(): 
 window(sf::VideoMode(900, 600), "Little Astronaut"){
-
+	timePerFrame = sf::seconds(1.f/60.f);
 }
-Game::run(){
+void Game::run(){
 	sf::Clock clock;
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 	while(window.isOpen()){
@@ -28,8 +28,11 @@ Game::run(){
 
 //PRIVATE
 
-void Game::update(){
-
+void Game::processEvents(){
+//
+}
+void Game::update(sf::Time pTimePerFrame){
+//
 }
 void Game::render(){
 	window.clear();
